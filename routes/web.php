@@ -20,7 +20,9 @@ use App\Http\Controllers\EntriesController;
 */
 
 // -----------------------------------------------------------------------
-
+Route::get('/', function () {
+    return view('Stock_Management.index');
+});
 // route for the index page
 Route::get('/index', function () {
     return view('Stock_Management.index');

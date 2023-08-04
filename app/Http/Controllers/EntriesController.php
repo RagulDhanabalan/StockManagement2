@@ -9,43 +9,54 @@ use App\Models\Entry;
 
 class EntriesController extends Controller
 {
-     // for create entry routing
-     public function create_entries()
-     {
-         $products = Product::get();
-         return view('Stock_Management.create-entries-form',['products' => $products]);
-     }
-     public function insert_entries(Request $request)
-      {
-          // $create = $request->all();
-          // Entry::create($create);
-          // return redirect('/entries')->with('success', 'New Product Created Successfully !');
+    // for create entry routing
+    public function create_entries()
+    {
+        $products = Product::get();
+        return view('Stock_Management.create-entries-form', ['products' => $products]);
+    }
+    public function insert_entries(Request $request)
+    {
+        $request->validate(
+            [
+                'product_id' => 'required',
+                'type' => 'required',
+                'quantity' => 'required',
+                'value' => 'required',
+                'description' => 'required',
+                'date' => 'required',
+            ],
+        );
 
-          $validatedData = $request->validate(
-              [
-                  'product_id' => 'required',
-                  'type' => 'required',
-                  'quantity' => 'required',
-                  'value' => 'required',
-                  'description' => 'required',
-                  'date' => 'required',
-              ],
-          );
-          $validatedData = $request->all();
-          Entry::create($validatedData);
+        // $data = Entry::create([
+        //     'product_id' => $request->product_id,
+        //     'type' => $request->type,
+        //     'quantity' => $request->quantity,
+        //     'value' => $request->value,
+        //     'description' => $request->description,
+        //     'date' => $request->date,
+        //   ]);
 
-          return redirect('/entries')->with('message', 'New Entry Created Successfully !');
-      }
+        $entry = Entry::create($request->all());
+        $product = Product::find($request->product_id);
+        // dd($product->entries->toArray());
+        if ($entry->type == 'In') {
+            $product->stock = $product->stock + $request->quantity;
+            $product->save();
+        } else if ($entry->type == 'Out') {
+            $product->stock = $product->stock - $request->quantity;
+            $product->save();
+        }
+
+        return redirect('/entries')->with('message', 'New Entry created Successfully !');
+    }
 
 
-      // for all entries list table
-      public function all_entries()
-      {
-          $entries = Entry::with('product')->get();
-          $entries = Entry::paginate(6);
-          // dd($entries->toArray());
-
-          return view('Stock_Management.all-entries-table', compact('entries'));
-      }
+    // for all entries list table
+    public function all_entries()
+    {
+        $entries = Entry::with('product')->paginate(6);
+        return view('Stock_Management.all-entries-table', compact('entries'));
+    }
 
 }

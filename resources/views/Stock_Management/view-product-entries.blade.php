@@ -32,19 +32,19 @@
 
                 Home</a>
         </button>
-        
+
         <table class="border my-2 p-2 w-full border-black">
 
             <thead class="px-2 mx-2 py-2 my-2 bg-black text-white border text-sm border-black">
                 <tr class="px-2 mx-2 py-2 my-2 border border-black">
-                    <th class="px-2 mx-2 py-2 my-2 border border-black">Product Id</th>
+                    <th class="px-2 mx-2 py-2 my-2 border border-black">Entry Id</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Stock</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Status</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Price <small>( &#8377 )</small></th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Type</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">SKU <small>( Stock Keeping Unit )</small>
                     </th>
-                    <th class="px-2 mx-2 py-2 my-2 border border-black">Last Entry Date</th>
+                    <th class="px-2 mx-2 py-2 my-2 border border-black">Date</th>
                 </tr>
             </thead>
             <tbody class="px-2 mx-2 py-2 my-2 border text-sm border-black">
@@ -53,13 +53,13 @@
                 @endempty --}}
                 @foreach ( $products->entries as $product )
                     <tr class="px-2 mx-2 py-2 my-2">
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $product->id ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $product->quantity ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $products->status ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $product->value ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $product->type ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $products->s_k_u ?? 'None' }}</td>
-                        <td class="px-2 mx-2 py-2 my-2 border text-center border-black">{{ $product->date ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $product->id ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $product->quantity ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $products->status ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $product->value ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $product->type ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $products->s_k_u ?? 'None' }}</td>
+                        <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ date('d-m-Y', strtotime($product->date)) ?? 'None' }}</td>
                     </tr>
                 @endforeach
 

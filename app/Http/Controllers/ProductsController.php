@@ -35,8 +35,8 @@ class ProductsController extends Controller
      // for all products list table
      public function all_products()
      {
-         $products = Product::paginate(6);
-         return view('Stock_Management.all-products-table', ['products' => $products]);
+        $products = Product::with('entries')->paginate(6);
+         return view('Stock_Management.all-products-table', compact('products'));
      }
       // for edit each product ( form page )
       public function edit_product($id)

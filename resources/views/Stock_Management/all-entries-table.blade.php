@@ -16,7 +16,7 @@
 </head>
 
 <body class="p-2 m-auto">
-    <div class="p-2 w-90 mx-auto">
+    <div class="p-1 w-90 mx-auto">
         {{-- session message start --}}
         @if (Session::has('message'))
         <div class="container mx-auto mt-10 space-y-5">
@@ -60,7 +60,7 @@
         <table class="border mx-auto w-full table-auto border-black shadow-lg">
             <thead class="border bg-black text-sm text-white border-black">
                 <tr>
-                    <th class="p-1 m-2 border text-sm border-black">S.No</th>
+                    <th class="p-1 m-2 text-sm border border-black">S.No</th>
                     <th class="p-2 m-2 text-sm border border-black">Product Name</th>
                     <th class="p-2 m-2 text-sm border border-black">Type <small>( In / Out )</small></th>
                     <th class="p-2 m-2 text-sm border border-black">Quantity</th>
@@ -69,16 +69,16 @@
                     <th class="p-2 m-2 text-sm border border-black">Date</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody class="text-sm">
                 <tr>
                     @foreach ($entries as $entry)
-                        <td class="p-2 m-2 text-sm border border-black">{{ $entry->id ?? 'None' }}</td>
-                        <td class="p-2 m-2 border  text-sm border-black">{{ $entry->product->name ?? 'None' }}</td>
-                        <td class="p-2 m-2 border text-sm border-black">{{ $entry->type }}</td>
-                        <td class="p-2 m-2 border text-sm border-black">{{ $entry->product->stock }}</td>
-                        <td class="p-2 m-2 border text-sm border-black">{{ $entry->value }}</td>
-                        <td class="p-2 m-2 border text-sm border-black">{{ $entry->description }}</td>
-                        <td class="p-2 m-2 border text-sm border-black">{{ $entry->date }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->id ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->product->name ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->type ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->quantity ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->value ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ $entry->description ?? 'None' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm border-black">{{ date('d-m-Y', strtotime($entry->date)) ?? 'None' }}</td>
                 </tr>
                 @endforeach
             </tbody>

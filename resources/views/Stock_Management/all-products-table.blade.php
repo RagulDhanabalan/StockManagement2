@@ -87,7 +87,7 @@
 
             <thead class="p-2 m-2 border bg-black text-white border-black">
                 <tr class="p-2 m-2 border border-black">
-                    <th class="p-2 m-2 border border-black">Id</th>
+                    <th class="p-2 m-2 border border-black">Product Id</th>
                     <th class="p-2 m-2 border border-black">Name</th>
                     <th class="p-2 m-2 border border-black">Stock</th>
                     <th class="p-2 m-2 border border-black">Status</th>
@@ -100,13 +100,13 @@
             <tbody class="p-2 m-2 border border-black">
                 <tr class="p-2 m-2">
                     @foreach ($products as $product)
-                        <td class="m-2 p-2 border border-black">{{ $product->id }}</td>
-                        <td class="p-2 m-2 border border-black">{{ $product->name }}</td>
-                        <td class="p-2 m-2 border border-black">{{ $product->stock }}</td>
-                        <td class="p-2 m-2 border border-black">{{ $product->status }}</td>
-                        <td class="p-2 m-2 border border-black">{{ $product->price }}</td>
-                        <td class="p-2 m-2 border border-black">{{ $product->s_k_u }}</td>
-                        <td class="p-2 m-2 border border-black"><a
+                        <td class="m-2 p-2 text-center text-sm border border-black">{{ $product->id ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->name ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->stock ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->status ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->price ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->s_k_u ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black"><a
                                 href="{{ url('/products/' . $product->id . '/view-entries') }}"
                                 class="text-pink font-normal border w-2 bg-pink-200 border-pink-200 hover:bg-pink-300 hover:text-white px-1 mx-1 py-1 my-1 rounded">
                                 View
