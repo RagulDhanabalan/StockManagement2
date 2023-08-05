@@ -61,7 +61,11 @@ class ProductsController extends Controller
       // for view page of each product's all entries
       public function view_product_entries($id)
       {
+        //   $entries = Entry::get();
           $products = Product::with('entries')->find($id);
+        //   $value = $products->price * $products->entries->quantity;
+
+        //   $value = $products->stock * $products->entries->quantity;
           return view('Stock_Management.view-product-entries', compact('products'));
       }
 }

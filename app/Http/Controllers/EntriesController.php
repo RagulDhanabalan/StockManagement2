@@ -22,35 +22,33 @@ class EntriesController extends Controller
                 'product_id' => 'required',
                 'type' => 'required',
                 'quantity' => 'required',
-                'value' => 'required',
                 'description' => 'required',
                 'date' => 'required',
             ],
         );
 
-        // $data = Entry::create([
-        //     'product_id' => $request->product_id,
-        //     'type' => $request->type,
-        //     'quantity' => $request->quantity,
-        //     'value' => $request->value,
-        //     'description' => $request->description,
-        //     'date' => $request->date,
-        //   ]);
-
-        $entry = Entry::create($request->all());
+        // $entry = Entry::create($request->all());
         $product = Product::find($request->product_id);
+        // $entry->value = $product->price * $entry->quantity;
         // dd($product->entries->toArray());
-        if ($entry->type == 'In') {
+        if ($request->type == 'In') {
             $product->stock = $product->stock + $request->quantity;
             $product->save();
-        } else if ($entry->type == 'Out') {
+        } else if ($request->type == 'Out') {
             $product->stock = $product->stock - $request->quantity;
             $product->save();
         }
-
+        $value = $product->price * $request->quantity;
+        Entry::create([
+            'product_id' => $request->product_id,
+            'type' => $request->type,
+            'quantity' => $request->quantity,
+            'description' => $request->description,
+            'date' => $request->date,
+            'value' => $value,
+        ]);
         return redirect('/entries')->with('message', 'New Entry created Successfully !');
     }
-
 
     // for all entries list table
     public function all_entries()

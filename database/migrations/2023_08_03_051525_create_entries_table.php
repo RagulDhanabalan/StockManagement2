@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('product_id');
             $table->enum('type',['In','Out']);
             $table->integer('quantity');
-            $table->integer('value');
             $table->string('description');
+            $table->integer('value');
             $table->date('date')->format(' d F Y ');
             $table->timestamps();
         });

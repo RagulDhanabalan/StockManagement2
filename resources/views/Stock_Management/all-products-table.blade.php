@@ -17,15 +17,15 @@
 
 <body class="text-gray-700 p-2 w-full mx-auto rounded">
 
-    <div class="container p-6 w-92 mx-auto">
+    <div class="container mb-2 p-2 w-full mx-auto">
         {{-- session message start --}}
         <div>
             @if (Session::has('message'))
                 <div class="container mx-auto mt-10 space-y-5">
-                    <!-- Alert Success  -->
+                    <!-- Alert Success ( for create )  -->
                     <div class="flex justify-between bg-green-500 shadow-inner rounded p-3">
                         <p class="self-center text-white">
-                        {{ Session::get('message') }}
+                            {{ Session::get('message') }}
                         </p>
                         <strong class="text-xl align-center text-white cursor-pointer alert-del">&times;</strong>
                     </div>
@@ -37,14 +37,14 @@
                             })
                         );
                     </script>
-                    </div>
+                </div>
             @endif
             @if (Session::has('update'))
                 <div class="container mx-auto mt-10 space-y-5">
-                    <!-- Alert Success  -->
+                    <!-- Alert Success ( for update )  -->
                     <div class="flex justify-between bg-green-500 shadow-inner rounded p-3">
                         <p class="self-center text-white">
-                        {{ Session::get('update') }}
+                            {{ Session::get('update') }}
                         </p>
                         <strong class="text-xl align-center text-white cursor-pointer alert-del">&times;</strong>
                     </div>
@@ -56,7 +56,7 @@
                             })
                         );
                     </script>
-                    </div>
+                </div>
             @endif
         </div>
 
@@ -97,13 +97,14 @@
                     <th class="p-2 m-2 border border-black">Actions</th>
                 </tr>
             </thead>
-            <tbody class="p-2 m-2 border border-black">
-                <tr class="p-2 m-2">
+            <tbody class="border border-black">
+                <tr>
                     @foreach ($products as $product)
                         <td class="m-2 p-2 text-center text-sm border border-black">{{ $product->id ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->name ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->stock ?? 'None' }}</td>
-                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->status ?? 'None' }}</td>
+                        <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->status ?? 'None' }}
+                        </td>
                         <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->price ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border border-black">{{ $product->s_k_u ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border border-black"><a

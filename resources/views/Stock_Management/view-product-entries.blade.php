@@ -38,9 +38,9 @@
             <thead class="px-2 mx-2 py-2 my-2 bg-black text-white border text-sm border-black">
                 <tr class="px-2 mx-2 py-2 my-2 border border-black">
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Entry Id</th>
-                    <th class="px-2 mx-2 py-2 my-2 border border-black">Stock</th>
+                    <th class="px-2 mx-2 py-2 my-2 border border-black">Quantity</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Status</th>
-                    <th class="px-2 mx-2 py-2 my-2 border border-black">Price <small>( &#8377 )</small></th>
+                    <th class="px-2 mx-2 py-2 my-2 border border-black">Value<small> ( &#8377 )</small></th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Type</th>
                     <th class="px-2 mx-2 py-2 my-2 border border-black">SKU <small>( Stock Keeping Unit )</small>
                     </th>

@@ -42,12 +42,7 @@
             @if ($errors->has('quantity'))
                 <span class="text-red-500">{{ $errors->first('quantity') }}</span>
             @endif
-            <label for="value" class="block text-gray-700 font-bold mb-2">Value :</label>
-            <input type="number" id="value" name="value" class="w-full border border-gray-300 p-2 rounded"
-                placeholder="Enter Value" />
-            @if ($errors->has('value'))
-                <span class="text-red-500">{{ $errors->first('value') }}</span>
-            @endif
+
             <label for="description" class="block text-gray-700 font-bold mb-2">Description :</label>
             <textarea name="description" id="description" name="description" cols="30"
                 class="w-full border border-gray-300 p-2 rounded" rows="2" placeholder="Give Entry Description"></textarea>
@@ -63,7 +58,7 @@
 
 
             <button type="submit"
-            class="grid justify-items-center w-full mb-2 bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Submit</button>
+                class="grid justify-items-center w-full mb-2 bg-green-600 hover:bg-green-700 text-white py-1 px-3 rounded">Submit</button>
             <div class="">
                 <a href="/entries" class="bg-blue-600 hover:bg-blue-700 text-white rounded mr-2 px-3 py-1">Back</a>
                 <a href="/index" class="bg-blue-600 hover:bg-blue-700 text-white rounded px-3 py-1">Home</a>
