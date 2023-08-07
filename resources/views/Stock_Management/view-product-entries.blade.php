@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>View Entries</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel = "icon" href = "https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais" type = "image/x-icon">
 </head>
 
 <body>
@@ -34,7 +35,9 @@
         </button>
 
         <table class="border my-2 p-2 w-full border-black">
-
+            @if($products->entries->isEmpty())
+                <p class="text-sm text-red-500 text-center">No Records Found</p>
+            @endif
             <thead class="px-2 mx-2 py-2 my-2 bg-black text-white border text-sm border-black">
                 <tr class="px-2 mx-2 py-2 my-2 border border-black">
                     <th class="px-2 mx-2 py-2 my-2 border border-black">Entry Id</th>
@@ -48,9 +51,6 @@
                 </tr>
             </thead>
             <tbody class="px-2 mx-2 py-2 my-2 border text-sm border-black">
-                {{-- @empty(  )
-                <p>Empty</p>
-                @endempty --}}
                 @foreach ( $products->entries as $product )
                     <tr class="px-2 mx-2 py-2 my-2">
                         <td class="px-2 mx-2 py-2 my-2 border text-sm text-center border-black">{{ $product->id ?? 'None' }}</td>
@@ -65,7 +65,7 @@
 
             </tbody>
         </table>
-{{-- {{ $products->links() }} --}}
+{{-- {{ $products->entries->links() }} --}}
     </section>
 </body>
 

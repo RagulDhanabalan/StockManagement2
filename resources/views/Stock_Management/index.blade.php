@@ -13,11 +13,12 @@
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.2/tailwind.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script> --}}
+    <link rel = "icon" href = "https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais" type = "image/x-icon">
+    {{-- <img src="images/stock1.jpeg" type = "image/x-icon"> --}}
 
 </head>
 
-<body class="bg-gray-100"
+<body class="bg-gray-100 "
     style="background-image: url('{{ 'images/stock1.jpeg' }}');repeat:no-repeat;background-size:cover; width: 100%; height: 550px;">
     {{-- navbar start --}}
 
@@ -86,4 +87,13 @@
             </button>
         </div>
     @endif
+    {{-- dashboard start --}}
+    {{-- <div class="h-50">
+        <section class="bg-green-300 w-1/5 h-full text-black">
+            <p>fjfgblfghdflkjh</p>
+
+        </section>
+    </div> --}}
+    {{-- dashboard end --}}
+
 </body>

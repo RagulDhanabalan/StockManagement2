@@ -19,7 +19,7 @@ class ProductsController extends Controller
     {
         $validatedData = $request->validate(
             [
-                'name' => 'required|alpha|regex:/^[A-Z]/|unique:products,name|max:30',
+                'name' => 'required|regex:/^[A-Z A-z]+$/i|unique:products,name|max:30',
                 'stock' => 'required|integer',
                 'status' => 'required|string',
                 'price' => 'required|integer',
@@ -27,7 +27,7 @@ class ProductsController extends Controller
             ],
         );
         $validatedData = $request->all();
-        Product::create($validatedData);
+        $product = Product::create($validatedData);
         session::flash('message', 'New Product Created Successfully !');
 
         return redirect('/products');
@@ -36,7 +36,7 @@ class ProductsController extends Controller
      public function all_products()
      {
         $products = Product::with('entries')->paginate(6);
-         return view('Stock_Management.all-products-table', compact('products'));
+        return view('Stock_Management.all-products-table', compact('products'));
      }
       // for edit each product ( form page )
       public function edit_product($id)
@@ -61,11 +61,8 @@ class ProductsController extends Controller
       // for view page of each product's all entries
       public function view_product_entries($id)
       {
-        //   $entries = Entry::get();
-          $products = Product::with('entries')->find($id);
-        //   $value = $products->price * $products->entries->quantity;
-
-        //   $value = $products->stock * $products->entries->quantity;
-          return view('Stock_Management.view-product-entries', compact('products'));
+        $products = Product::with('entries')->find($id);
+        // dd($products);
+        return view('Stock_Management.view-product-entries', compact('products'));
       }
 }

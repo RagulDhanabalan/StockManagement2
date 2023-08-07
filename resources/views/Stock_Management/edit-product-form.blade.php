@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Product</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+    <link rel = "icon" href = "https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais" type = "image/x-icon">
 </head>
 
 <body class="bg-gray-200">
@@ -18,7 +19,7 @@
             <div class="mb-1">
                 <label for="name" class="block text-gray-700 font-bold mb-2">Name:</label>
                 <input type="text" id="name" autofocus name="name"
-                    class="w-full border border-gray-300 p-2 rounded" value="{{ $product->name }}" />
+                    class="w-full border border-green-500 focus:border-green-600  outline-none p-2 rounded" value="{{ $product->name }}" />
                 @if ($errors->has('name'))
                     <span class="text-red-500">{{ $errors->first('name') }}</span>
                     <span class="text-red-500">{{ $errors->first('name.alphanumeric') }}</span>
@@ -29,7 +30,7 @@
 
             <div class="mb-1">
                 <label for="stock" class="block text-gray-700 font-bold mb-2">Stock:</label>
-                <input type="stock" id="stock" name="stock" class="w-full border border-gray-300 p-2 rounded"
+                <input type="stock" id="stock" name="stock" class="w-full border border-green-500 focus:border-green-600  outline-none p-2 rounded"
                     value="{{ $product->stock }}" />
                 @if ($errors->has('stock'))
                     <span class="text-red-500">{{ $errors->first('stock') }}</span>
@@ -52,7 +53,7 @@
 
             <div class="mb-1">
                 <label for="price" class="block text-gray-700 font-bold mb-2">Price:</label>
-                <input id="price" name="price" rows="4" class="w-full border border-gray-300 p-2 rounded"
+                <input id="price" name="price" rows="4" class="w-full border border-green-500 focus:border-green-600  outline-none p-2 rounded"
                     value="{{ $product->price }}" />
                 @if ($errors->has('price'))
                     <span class="text-red-500">{{ $errors->first('price') }}</span>
@@ -62,11 +63,10 @@
             <div class="mb-1">
                 <label for="s_k_u" class="block text-gray-700 font-bold mb-2">SKU ( Stock Keeping Unit ):</label>
                 <select name="s_k_u" id="s_k_u"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    class="bg-gray-50 border border-green-500 focus:border-green-600  outline-none  text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2 "
                     value="{{ $product->s_k_u }}">
                     <option>Select SKU type</option>
-                    <option value="kilo grams"{{ $product->s_k_u === 'Kilo grams' ? 'selected' : '' }}>Kilo grams
-                    </option>
+                    <option value="kilo grams"{{ $product->s_k_u === 'Kilo grams' ? 'selected' : '' }}>Kilo grams</option>
                     <option value="Litres"{{ $product->s_k_u === 'Litres' ? 'selected' : '' }}>Litres</option>
                     <option value="Bunches"{{ $product->s_k_u === 'Bunches' ? 'selected' : '' }}>Bunches</option>
                     <option value="Pieces"{{ $product->s_k_u === 'Pieces' ? 'selected' : '' }}>Pieces</option>
