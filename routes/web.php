@@ -5,6 +5,9 @@ use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Stock_Management;
 use App\Http\Controllers\EntriesController;
+use App\Http\Controllers\CSVController;
+use App\Http\Controllers\PDFController;
+use App\Http\Controllers\PieChartController;
 
 
 
@@ -48,3 +51,23 @@ Route::get('products/{id}/view-entries/',[ProductsController::class, 'view_produ
 Route::get('products/{id}/edit/',[ProductsController::class,'edit_product']);
 // for updating product details
 Route::post('products/{id}/update',[ProductsController::class,'update_product']);
+
+// for  CSV file generation
+Route::get('/import-csv',[CSVController::class,'importCSV']);
+Route::get('/export-csv-entry',[CSVController::class,'exportCSV_entry']);
+Route::get('/export-csv-product',[CSVController::class,'exportCSV_product']);
+// for  PDF file generation
+Route::get('/pdf-products',[PDFController::class,'pdf_products']);
+Route::get('/pdf-entries',[PDFController::class,'pdf_entries']);
+
+// pie chart route
+Route::get('/pie-chart-products', [PieChartController::class, 'piechart_products']);
+// bar chart route
+Route::get('/bar-chart-products', [PieChartController::class, 'barchart_products']);
+// products graph route
+Route::get('/graph-products', [PieChartController::class, 'graph_products']);
+
+
+
+
+

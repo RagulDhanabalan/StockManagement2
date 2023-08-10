@@ -31,11 +31,13 @@ class ProductsController extends Controller
         session::flash('message', 'New Product Created Successfully !');
 
         return redirect('/products');
+        // return $request;
     }
      // for all products list table
      public function all_products()
      {
-        $products = Product::with('entries')->paginate(6);
+        $products = Product::with('entries')->orderBy('stock')->paginate(6);
+        // Product::orderBy('stock', 'desc')->get();
         return view('Stock_Management.all-products-table', compact('products'));
      }
       // for edit each product ( form page )
@@ -65,4 +67,12 @@ class ProductsController extends Controller
         // dd($products);
         return view('Stock_Management.view-product-entries', compact('products'));
       }
+// csv file------------------------------------------------------------------------
+
 }
+
+
+
+
+
+
