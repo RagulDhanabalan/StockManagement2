@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Stock_Management;
@@ -8,6 +9,7 @@ use App\Http\Controllers\EntriesController;
 use App\Http\Controllers\CSVController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\PieChartController;
+
 
 
 
@@ -67,6 +69,22 @@ Route::get('/bar-chart-products', [PieChartController::class, 'barchart_products
 // products graph route
 Route::get('/graph-products', [PieChartController::class, 'graph_products']);
 
+// --------------------------------------------------
+Route::view('/layout', 'Stock_Management.layout');
+// --------------------------------------------------
+
+
+
+// register routes
+Route::get('register-form', [LoginController::class, 'register_form']);
+Route::post('register-insert', [LoginController::class, 'register_insert']);
+Route::get('welcome-customer', [LoginController::class, 'welcome_customer']);
+
+// login routes
+
+Route::get('login-form', [LoginController::class, 'login_form']);
+Route::post('authenticate', [LoginController::class, 'authenticate']);
+Route::get('welcome-customer', [LoginController::class, 'welcome_customer']);
 
 
 
