@@ -13,7 +13,24 @@
 <body>
     <section class="p-3 m-2 bg-gray-100 rounded">
         <h3 class="text-green-700 text-center">All Entries : <strong> {{ $products->name ?? 'None' }} </strong></h3>
-        <button class="flex">
+    <div class="flex justify-center bg-gray-300 p-2 w-1/5 rounded">
+        <form action="/week-entries" method="post">
+            @csrf
+            <p class="font-bold text-green-600">Get Entries</p>
+            <label for="">From :</label><br>
+            <input type="date" name="sdate"><br>
+            <label for="">To :</label><br>
+            <input type="date" name="edate"><br>
+            <button type="submit" class="text-bold bg-black text-white px-3 py-1 mt-2 rounded">Enter</button>
+        </form>
+    </div>
+    {{-- <a href="{{ url('/products/'. $products->id .'/view-entries') }}">Get</a> --}}
+    <div class="bg-red-400 p-2 w-1/5 mt-2 rounded">
+        {{-- <p class="text-white">Total Quantity ( Kgs ) : <strong>{{ $products->entries->sum('quantity') }}</strong></p> --}}
+        <p class="text-white">Total Quantity ( Kgs ) : <strong>{{ $fq }}</strong></p>
+        <p class="text-white">Total Value : &#8377 <strong>{{ $fv }}</strong></p>
+    </div>
+        <button class="flex mt-3">
             <a href="/products" title="Add New Product"
                 class="mr-1 bg-green-600 flex hover:bg-green-800 text-white py-1 px-3 no-underline rounded"><svg
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8"

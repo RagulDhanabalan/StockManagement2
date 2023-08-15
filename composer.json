@@ -10,6 +10,7 @@
         "laravel/framework": "^11.0",
         "laravel/sanctum": "dev-develop",
         "laravel/tinker": "dev-develop",
+        "livewire/livewire": "^3.0@beta",
         "maatwebsite/excel": "^1.1",
         "phpoffice/phpexcel": "^1.8"
     },

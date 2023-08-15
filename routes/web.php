@@ -49,6 +49,7 @@ Route::get('/entries/create',[EntriesController::class, 'create_entries']);
 Route::post('/insert-entries',[EntriesController::class, 'insert_entries']);
 //route for view page of all unique product entries
 Route::get('products/{id}/view-entries/',[ProductsController::class, 'view_product_entries']);
+Route::post('/week-entries',[ProductsController::class, 'one_week_entries']);
 // for edit product ( form )
 Route::get('products/{id}/edit/',[ProductsController::class,'edit_product']);
 // for updating product details
@@ -69,8 +70,8 @@ Route::get('/bar-chart-products', [PieChartController::class, 'barchart_products
 // products graph route
 Route::get('/graph-products', [PieChartController::class, 'graph_products']);
 
-// --------------------------------------------------
-Route::view('/layout', 'Stock_Management.layout');
+// ----------------Dashboard----------------------------------
+Route::get('/dashboard', [ProductsController::class, 'dashboard']);
 // --------------------------------------------------
 
 
@@ -86,6 +87,9 @@ Route::get('login-form', [LoginController::class, 'login_form']);
 Route::post('authenticate', [LoginController::class, 'authenticate']);
 Route::get('welcome-customer', [LoginController::class, 'welcome_customer']);
 
+// Route::get('layout','Stock_Management.layout');
 
+
+// Entries details routes
 
 

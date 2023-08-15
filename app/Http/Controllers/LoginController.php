@@ -55,4 +55,9 @@ class LoginController extends Controller
         }
 
     }
+
+    public function dashboard_customer(){
+        $customers = Customer::paginate(5);
+        return view('Stock_Management.WelcomeCustomer', ['customers' => $customers]);
+    }
 }
