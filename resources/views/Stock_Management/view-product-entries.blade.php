@@ -12,8 +12,8 @@
 
 <body>
     <section class="p-3 m-2 bg-gray-100 rounded">
-        <h3 class="text-green-700 text-center">All Entries : <strong> {{ $products->name ?? 'None' }} </strong></h3>
-    <div class="flex justify-center bg-gray-300 p-2 w-1/5 rounded">
+        <h3 class="text-center">All Entries <h2 class="text-green-700 text-2xl text-center p-1 rounded"> {{ $products->name ?? 'None' }} </h2></h3>
+    {{-- <div class="flex justify-center bg-gray-300 p-2 w-1/5 rounded">
         <form action="/week-entries" method="post">
             @csrf
             <p class="font-bold text-green-600">Get Entries</p>
@@ -23,12 +23,19 @@
             <input type="date" name="edate"><br>
             <button type="submit" class="text-bold bg-black text-white px-3 py-1 mt-2 rounded">Enter</button>
         </form>
-    </div>
-    {{-- <a href="{{ url('/products/'. $products->id .'/view-entries') }}">Get</a> --}}
+    </div> --}}
+
     <div class="bg-red-400 p-2 w-1/5 mt-2 rounded">
-        {{-- <p class="text-white">Total Quantity ( Kgs ) : <strong>{{ $products->entries->sum('quantity') }}</strong></p> --}}
+        @foreach ($products->entries as $entry)
+            <p>{{ $entry->date}}</p>
+
+        @endforeach
+        {{-- <p>{{ $result->stock}}</p> --}}
+        <p class="text-white">Total In : {{ $products->sumOfIn() }}</p>
+        <p class="text-white">Total Out : {{ $products->sumOfOut() }}</p>
         <p class="text-white">Total Quantity ( Kgs ) : <strong>{{ $fq }}</strong></p>
         <p class="text-white">Total Value : &#8377 <strong>{{ $fv }}</strong></p>
+        {{-- <button class="form bg-white p-1 rounded mt-2">Get Values Between</button> --}}
     </div>
         <button class="flex mt-3">
             <a href="/products" title="Add New Product"

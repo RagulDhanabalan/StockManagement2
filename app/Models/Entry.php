@@ -9,6 +9,7 @@ class Entry extends Model
 {
     use HasFactory;
     protected  $guarded = [];
+    // protected $table = 'products';
     public function product()
     {
         return $this->belongsTo(Product::class);

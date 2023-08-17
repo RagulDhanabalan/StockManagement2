@@ -20,7 +20,7 @@
 </head>
 
 <body class="flex w-full h-full justify-between text-gray-700 rounded">
-    <div class="w-full mt-10 pt-12 grid px-4  justify-items-center">
+    <div class="w-full mt-10 pt-2 grid px-4  justify-items-center">
         {{-- session message start --}}
         @if (Session::has('message'))
             <div class="container mx-auto mt-10 space-y-5">
@@ -44,7 +44,7 @@
             </div>
         @endif
         @if (Session::has('update'))
-            <div class="container mx-auto mt-10">
+            <div class="container mx-auto mt-2">
                 <!-- Alert Success ( for update )  -->
                 <div class="flex justify-between bg-green-500 shadow-inner rounded p-3">
                     <p class="self-center text-white">
@@ -66,6 +66,8 @@
 
         {{-- session message end --}}
 
+
+{{-- --------------------------------------- --}}
         <h2 class="mb-6 w-full uppercase text-black p-1 font-bold text-center rounded">Products</h2>
         <button class="flex">
             <a href="/products/create" title="Add New Product"
@@ -104,6 +106,24 @@
                 Graph</a>
 
         </button>
+        {{-- -------------------form --}}
+        <div class="modal bg-gray-300 w-1/3 mt-2 p-1">
+            <form method="post" action="/in-out">
+                @csrf
+                <select name="id" id="id" class="w-full border border-green-500 focus:border-green-600 outline-none border-gray-300 p-1 rounded" aria-placeholder="Select Product Name" autofocus>
+                    <option value="" class="text-black">Select Product Name</option>
+                    @foreach ($products as $product)
+                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                </select>
+                <label for="">From</label>
+                <input type="date" name="sdate">
+                <label for="">To</label>
+                <input type="date" name="edate">
+                <button class="bg-black text-white p-1 rounded mt-2 hover:text-gray-400">Submit</button>
+            </form>
+        </div>
+        {{-- ---------------------------form --}}
         <table class="border  w-full my-2 mx-auto table-auto border-black shadow-lg rounded">
 
             @if ($products->isEmpty())
@@ -129,9 +149,8 @@
                 </tr>
             </thead>
             <tbody class="border ">
-                <tr>
-
                     @foreach ($products as $product)
+                    <tr @if($loop->odd) class="bg-yellow-200" @endif>
                         {{-- <td class="m-2 p-2 text-center text-sm border">{{ $loop->iteration ?? 'None' }}</td> --}}
                         <td class="m-2 p-2 text-center text-sm border">{{ $product->id ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border">{{ $product->name ?? 'None' }}</td>
@@ -140,27 +159,18 @@
                         </td>
                         <td class="p-2 m-2 text-center text-sm border">{{ $product->price ?? 'None' }}</td>
                         <td class="p-2 m-2 text-center text-sm border">{{ $product->s_k_u ?? 'None' }}</td>
-                        {{-- <td class="p-2 m-2 text-center text-sm border"><a
-                                href="{{ url('/products/' . $product->id . '/one-week-entries-in') }}"
-                                class="text-black text-sm border px-1 mx-1 py-1 my-1 w-2 bg-yellow-300 hover:bg-yellow-500 hover:text-white rounded">
-                                In
-                            </a></td> --}}
-                        {{-- <td class="p-2 m-2 text-center text-sm border"><a
-                                href="{{ url('/products/' . $product->id . '/two-weeks-entries') }}"
-                                class="text-black text-sm border px-1 mx-1 py-1 my-1 w-2 bg-red-300 hover:bg-red-500 hover:text-white rounded">
-                                2 weeks entries
-                                </a></td> --}}
-                        <td class="p-2 m-2 text-sm text-center border"><a
-                                href="{{ url('/products/' . $product->id . '/view-entries') }}"
-                                class="text-black text-sm border px-1 mx-1 py-1 my-1 w-2 bg-blue-200 hover:bg-blue-500 hover:text-white rounded">
-
-                                Entries</a>
+                        <td class="p-2 m-2 text-sm text-center border"><a href="{{ url('/products/' . $product->id . '/view-entries') }}"   class="text-black text-sm border px-1 mx-1 py-1 my-1 w-2 bg-blue-200 hover:bg-blue-500 hover:text-white rounded">Entries</a>
                             <a href="{{ url('/products/' . $product->id . '/edit') }}"
-                                class="border w-2 text-black bg-pink-300 border-pink-200 hover:bg-pink-500 hover:text-white px-1 mx-1 py-1 my-1 rounded">Edit
+                            class="border w-2 text-black bg-pink-300 border-pink-200 hover:bg-pink-500 hover:text-white px-1 mx-1 py-1 my-1 rounded">Edit
                             </a>
                         </td>
                 </tr>
+                {{-- @else
+                <tr>
+                    <td colspan="4">No Record Found</td>
+                </tr> --}}
                 @endforeach
+
             </tbody>
         </table>
         {{ $products->links() }}

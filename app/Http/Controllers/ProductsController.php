@@ -37,11 +37,10 @@ class ProductsController extends Controller
         // return $request;
     }
     // for all products list table
-    public function all_products()
+    public function all_products(Request $request)
     {
         $products = Product::with('entries')->orderBy('stock')->paginate(6);
-        // Product::orderBy('stock', 'desc')->get();
-        return view('Stock_Management.all-products-table', compact('products'));
+        return view('Stock_Management.all-products-table', ['products' => $products]);
     }
     // for edit each product ( form page )
     public function edit_product($id)
@@ -64,18 +63,10 @@ class ProductsController extends Controller
         return redirect('/products');
     }
     // for view page of each product's all entries
-    public function view_product_entries($id)
+    public function view_product_entries(Request $request, $id)
     {
-        // $products = Product::with('entries')->find($id);
-        // dd($products->entries->sum('value'));
-        $startdate = '2023-08-01';
-        $enddate = now();
         $products = Product::with('entries')->find($id);
-        $result = $products->entries->whereBetween('date',[$startdate,$enddate]);
-        $fq = $result->sum('quantity');
-        $fv = $result->sum('value');
-        $z = $products->entries;
-        return view('Stock_Management.view-product-entries', compact('products', 'fq', 'fv'));
+        return view('Stock_Management.view-product-entries', compact('products'));
     }
     // csv file------------------------------------------------------------------------
 // layout
@@ -86,17 +77,29 @@ class ProductsController extends Controller
         return view('Stock_Management.dashboard', ['product' => $product, 'customer' => $customer]);
     }
 
-    // Entries of last one week
+    public function form(Request $request){
+        $id = $request->input('id');
+        $startDate = $request->input('sdate');
+        $endDate = $request->input('edate');
 
-    public function one_week_entries($id, Request $request ){
-        $products = Product::with('entries')->find($id);
-        $startdate = $request->input('sdate');
-        $enddate = $request->input('edate');
-        $result = $products->entries->whereBetween('date',[$startdate,$enddate]);
-        $fq = $result->sum('quantity');
-        $fv = $result->sum('value');
-        dd($fv);
-        // return view('Stock_Management.oneweek', compact('products', 'fq', 'fv'));
+        $products = Product::with(
+        ['entries' => function ($query) use ($startDate, $endDate)
+        {
+            $query->whereBetween('date', [$startDate, $endDate]);
+        }
+        ]
+        )->find($id);
+
+        // $products = Product::find($id)->with('entries')->whereBetween('date', $startDate,$endDate)->get
+        $sumIn = Entry::whereBetween('date', [$startDate, $endDate])
+            ->where('type', 'In')
+            ->sum('quantity');
+
+        $sumOut = Entry::whereBetween('date', [$startDate, $endDate])
+            ->where('type', 'Out')
+            ->sum('quantity');
+            // dd($products);
+        return view('Stock_Management.inout', compact('products', 'sumIn', 'sumOut', 'startDate', 'endDate'));
     }
 
 }

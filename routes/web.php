@@ -37,6 +37,7 @@ Route::get('/index', function () {
 
 //route for all-products list table
 Route::get('/products',[ProductsController::class, 'all_products']);
+Route::post('/products',[ProductsController::class, 'all_products']);
 //route for all-entries list table
 Route::get('/entries',[EntriesController::class, 'all_entries']);
 //route for create products form
@@ -49,6 +50,8 @@ Route::get('/entries/create',[EntriesController::class, 'create_entries']);
 Route::post('/insert-entries',[EntriesController::class, 'insert_entries']);
 //route for view page of all unique product entries
 Route::get('products/{id}/view-entries/',[ProductsController::class, 'view_product_entries']);
+// Route::post('products/{id}/view-entries/',[ProductsController::class, 'view_product_entries']);
+// Route::post('products/{id}/view-entries/',[ProductsController::class, 'form']);
 Route::post('/week-entries',[ProductsController::class, 'one_week_entries']);
 // for edit product ( form )
 Route::get('products/{id}/edit/',[ProductsController::class,'edit_product']);
@@ -91,5 +94,5 @@ Route::get('welcome-customer', [LoginController::class, 'welcome_customer']);
 
 
 // Entries details routes
-
+Route::post('/in-out', [ProductsController::class, 'form']);
 
