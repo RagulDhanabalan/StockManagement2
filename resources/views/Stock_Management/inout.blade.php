@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,17 +24,18 @@
 </head>
 
 <body>
-    <h2 class="text-center text-2xl">Products</h2>
-
+    <h2 class="text-center mb-6 text-2xl">Products</h2>
+    <h3 class="text-center text-normal">Showing Results Of : <p class="text-red-600 text-xl">{{ $products->name }}</p></h3>
     <div class="container mx-auto w-full">
 
-        {{-- <div class="bg-gray-200 mt-4 text-center w-1/4 rounded">
+        <div class="bg-gray-200 mt-4 mb-3 pb-2 text-center w-1/4 rounded">
             <p class="text-2xl">Inventory</p>
             <span class="text-green-600">Total IN :
-                <strong>{{ $sumIn }}</strong></span><br>
+                {{-- <strong>{{ $totalQuantityIn }}</strong></span><br> --}}
+                <strong>{{ $products->sumOfIn() }}</strong></span><br>
             <span class="text-red-600">Total OUT :
-                <strong>{{ $sumOut }}</strong></span>
-        </div> --}}
+                <strong>{{ $products->sumOfOut() }}</strong></span>
+        </div>
         {{-- search bar start --}}
         <div class="search flex float-right bg-gray-200 w-1/4 mb-3 rounded">
 
@@ -56,43 +59,53 @@
             </form>
 
         </div>
-        <h3 class="flex text-xl mr-3">Showing Results Between <p class="text-red-500 text-normal ml-3">{{ date('d-m-Y', strtotime($startDate)) }}<strong class="text-black"> & </strong>{{ date('d-m-Y', strtotime($endDate)) }}</p></h3>
+        <h3 class="flex text-xl mr-3">Showing Results Between <p class="text-green-500 text-normal ml-3">
+                {{ date('d-m-Y', strtotime($startDate)) }}<strong class="text-black"> &
+                </strong>{{ date('d-m-Y', strtotime($endDate)) }}</p>
+        </h3>
         {{-- search bar end --}}
         <table class="mt-6 border mx-auto mb-2 w-full table-auto border-black shadow-lg">
             <thead class="border bg-black text-sm text-white border-black">
                 <tr>
-                    <th class="p-1 m-2 text-sm border border-black">Name</th>
+                    {{-- <th class="p-1 m-2 text-sm border border-black">Name</th> --}}
                     <th class="p-1 m-2 text-sm border border-black">Quantity</th>
                     <th class="p-1 m-2 text-sm border border-black">Price</th>
                     <th class="p-1 m-2 text-sm border border-black">Value</th>
                     <th class="p-1 m-2 text-sm border border-black">Status</th>
                     <th class="p-1 m-2 text-sm border border-black">S.K.U</th>
                     <th class="p-1 m-2 text-sm border border-black">Type</th>
-                    <th class="p-1 m-2 text-sm border border-black">Last Entry Date</th>
+                    <th class="p-1 m-2 text-sm border border-black">Date</th>
                 </tr>
             </thead>
             <tbody>
-
+                @if (collect($products->entries)->isEmpty())
+                    <p class="text-red-500 mt-2 text-center">No Record Found</p>
+                @else
                 @foreach ($products->entries as $entry)
+                    {{-- {{ $entry->isEmpty() ? '<tr><td colspan="2">No records found.</td></tr>' : '' }} --}}
 
-                        <tr @if ($loop->even) class="bg-yellow-200" @endif>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $products->name ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $entry->quantity ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $products->price ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $entry->value ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $products->status ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $products->s_k_u ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">{{ $entry->type ?? 'none' }}</td>
-                            <td class="p-2 m-2 border text-center text-sm">
-                                {{ date('d-m-Y', strtotime($entry->date)) ?? 'none' }}</td>
-                        </tr>
+                    <tr @if ($loop->even) class="bg-yellow-200" @endif>
+                        {{-- <td class="p-2 m-2 border text-center text-sm">{{ $products->name ?? 'none' }}</td> --}}
+                        <td class="p-2 m-2 border text-center text-sm">{{ $entry->quantity ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">{{ $products->price ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">{{ $entry->value ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">{{ $products->status ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">{{ $products->s_k_u ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">{{ $entry->type ?? 'none' }}</td>
+                        <td class="p-2 m-2 border text-center text-sm">
+                            {{ date('d-m-Y', strtotime($entry->date)) ?? 'none' }}</td>
+                    </tr>
+
                     {{-- @endforeach --}}
                 @endforeach
+                @endif
             </tbody>
         </table>
-        <a class="w-full text-center bg-green-400 text-sm text-white hover:bg-green-500 p-1 mt-3 rounded" href="/products">Back</a>
-        {{-- {{ $products->links() }} --}}
+        <a class="w-full text-center bg-green-400 text-sm text-white hover:bg-green-500 p-1 mt-3 rounded"
+        href="/products">Back</a>
+        {{-- <a href="{{ $products->links() }}"></a> --}}
+
     </div>
 </body>
-
+@endsection
 </html>

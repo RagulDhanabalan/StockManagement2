@@ -56,5 +56,21 @@ class EntriesController extends Controller
         $entries = Entry::with('product')->paginate(6);
         return view('Stock_Management.all-entries-table', compact('entries'));
     }
+    public function filter_data_entries(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $query = Entry::query();
+
+        if ($searchTerm) {
+            $query->where('id', 'LIKE', "%$searchTerm%")
+                ->orWhere('product_id', 'LIKE', "%$searchTerm%");
+        }
+
+        $entries = $query->paginate(5);
+
+        $message = $entries->isEmpty() ? 'No Entries Found.' : '';
+
+        return view('Stock_Management.all-entries-table', compact('entries', 'searchTerm', 'message'));
+    }
 
 }

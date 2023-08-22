@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +22,9 @@
 </head>
 
 <body class="flex w-full h-full justify-between text-gray-700 rounded">
-    <div class="w-full mt-10 pt-2 grid px-4  justify-items-center">
+
+
+    <div class="w-full mt-1 pt-2 grid px-4  justify-items-center">
         {{-- session message start --}}
         @if (Session::has('message'))
             <div class="container mx-auto mt-10 space-y-5">
@@ -92,7 +96,7 @@
             <a href="#" title="Get as csv file"
                 class="bg-green-600 ml-1 flex hover:bg-green-800 text-white text-sm py-1 px-2 no-underline rounded">
                 Get CSV</a>
-            <a href="#" title="Get as pdf file"
+            <a href="/pdf-products" title="Get as pdf file"
                 class="bg-green-600 ml-1 flex hover:bg-green-800 text-white text-sm py-1 px-2 no-underline rounded">
                 Get PDF</a>
             <a href="/pie-chart-products" title="View as a file chart"
@@ -107,22 +111,30 @@
 
         </button>
         {{-- -------------------form --}}
-        <div class="modal bg-gray-300 w-1/3 mt-2 p-1">
-            <form method="post" action="/in-out">
+        <div class="modal bg-gray-300 w-1/3 mt-2 p-1 mx-auto">
+            <form method="POST" action="/in-out" class="mx-auto">
                 @csrf
-                <select name="id" id="id" class="w-full border border-green-500 focus:border-green-600 outline-none border-gray-300 p-1 rounded" aria-placeholder="Select Product Name" autofocus>
-                    <option value="" class="text-black">Select Product Name</option>
+                <select name="id" id="id" class="w-full mx-auto bg-white" required>
+                    <option class="text-center" selected disabled>Select Product</option>
                     @foreach ($products as $product)
-                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        <option value="{{ $product->id }}">{{ $product->name }} </option>
                     @endforeach
-                </select>
+                </select><br>
                 <label for="">From</label>
                 <input type="date" name="sdate">
                 <label for="">To</label>
                 <input type="date" name="edate">
                 <button class="bg-black text-white p-1 rounded mt-2 hover:text-gray-400">Submit</button>
             </form>
+                {{-- <form action="/products" method="GET" class="w-full flex">
+                    @csrf
+                    <input type="text" name="search" value="{{ $searchTerm }}" class="ml-14 w-60 h-8 mr-2 px-1 rounded" placeholder="Search here..."
+                        required>
+                    <button type="submit" class="px-2 bg-blue-500 text-white rounded">Search</button>
+                </form> --}}
+
         </div>
+
         {{-- ---------------------------form --}}
         <table class="border  w-full my-2 mx-auto table-auto border-black shadow-lg rounded">
 
@@ -143,9 +155,9 @@
                         data-order="desc">Price<small>( &#8377 )</small></th>
                     <th class="p-2 m-2 border border-black">SKU <small class="font-thin">( Stock Keeping Unit)</small>
                     </th>
-                    {{-- <th class="p-2 m-2 border border-black">Entries<small class="font-thin">( Last Week )</small></th> --}}
-                    {{-- <th class="p-2 m-2 border border-black">Last 2 weeks average</th> --}}
                     <th class="p-2 m-2 border border-black">Action</th>
+                    <th class="p-2 m-2 border border-black">In</th>
+                    <th class="p-2 m-2 border border-black">Out</th>
                 </tr>
             </thead>
             <tbody class="border ">
@@ -164,15 +176,34 @@
                             class="border w-2 text-black bg-pink-300 border-pink-200 hover:bg-pink-500 hover:text-white px-1 mx-1 py-1 my-1 rounded">Edit
                             </a>
                         </td>
+                        <td class="p-2 m-2 text-center text-sm border">{{ $product->sumOfIn() }}</td>
+                        <td class="p-2 m-2 text-center text-sm border">{{ $product->sumOfOut() }}</td>
+
                 </tr>
                 {{-- @else
                 <tr>
                     <td colspan="4">No Record Found</td>
                 </tr> --}}
                 @endforeach
+                {{-- <th class="p-2 m-2 border border-black">In</th>
+                    <th class="p-2 m-2 border border-black">Out</th>
+                @foreach ($in as $pin)
+                        <td class="p-2 m-2 text-center text-sm border"> {{ $pin }} </td>
+                        @endforeach
+                        @foreach ($out as $pout)
+                        <td class="p-2 m-2 text-center text-sm border"> {{ $pout }} </td>
+                        @endforeach --}}
 
             </tbody>
         </table>
         {{ $products->links() }}
+        {{-- {{ $products->links() }} --}}
     </div>
+@endsection
 </body>
+<script>
+    if (window.performance && window.performance.navigation.type === 1) {
+        window.location.href = '/products';
+    }
+</script>
+</html>

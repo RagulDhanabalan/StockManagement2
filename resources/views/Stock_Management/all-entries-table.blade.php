@@ -1,3 +1,6 @@
+@extends('Stock_Management.index')
+{{-- @section('content') --}}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,6 +19,7 @@
 </head>
 
 <body class="p-2 m-auto">
+    @section('content')
     <div class="p-3 mx-6">
     <div class="p-2 mx-6 mt-1 grid justify-items-center w-90 mx-auto">
         {{-- session message start --}}
@@ -67,6 +71,13 @@
                     class="bg-green-600 ml-1 flex hover:bg-green-800 text-white text-sm py-1 px-2 no-underline rounded">
                     Pie Chart</a>
     </button>
+</form>
+{{-- <form action="/filter-entries" method="GET" class="w-full flex">
+    @csrf
+    <input type="text" name="search" value="{{ $searchTerm }}" class="ml-14 w-60 h-8 mr-2 px-1 rounded" placeholder="Search here..."
+        required>
+    <button type="submit" class="px-2 bg-blue-500 text-white rounded">Search</button>
+         </form> --}}
 </div>
         <div>
             <table class="border mx-auto w-full table-auto border-black shadow-lg">
@@ -106,6 +117,6 @@
             </div>
         </div>
 
-
+@endsection
 </div>
 </body>

@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,16 +28,8 @@
     </div> --}}
 
     <div class="bg-red-400 p-2 w-1/5 mt-2 rounded">
-        @foreach ($products->entries as $entry)
-            <p>{{ $entry->date}}</p>
-
-        @endforeach
-        {{-- <p>{{ $result->stock}}</p> --}}
-        <p class="text-white">Total In : {{ $products->sumOfIn() }}</p>
-        <p class="text-white">Total Out : {{ $products->sumOfOut() }}</p>
-        <p class="text-white">Total Quantity ( Kgs ) : <strong>{{ $fq }}</strong></p>
-        <p class="text-white">Total Value : &#8377 <strong>{{ $fv }}</strong></p>
-        {{-- <button class="form bg-white p-1 rounded mt-2">Get Values Between</button> --}}
+        <p class="text-white">Quantity - Total In : {{ $products->sumOfIn() }}</p>
+        <p class="text-white">Quantity - Total Out : {{ $products->sumOfOut() }}</p>
     </div>
         <button class="flex mt-3">
             <a href="/products" title="Add New Product"
@@ -90,5 +84,5 @@
 {{-- {{ $products->entries->links() }} --}}
     </section>
 </body>
-
+@endsection
 </html>

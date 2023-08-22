@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,8 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="w-full h-full">
-    <div style="width: 40%; margin: auto;" class="grid h-screen mx-auto justify-items-center align-middle">
-        <h3 class="text-green-500 font-bold">Products - Pie Chart</h3><br>
+    <div style="width: 30%; margin: auto;" class="grid h-screen mx-auto justify-items-center align-middle">
+        {{-- <h3 class="text-green-500 font-bold">Products - Pie Chart</h3><br> --}}
         <canvas id="productChart"></canvas>
       </div>
 <div class="w-full h-full ">
@@ -48,3 +50,4 @@
 </div>
 </body>
 </html>
+@endsection

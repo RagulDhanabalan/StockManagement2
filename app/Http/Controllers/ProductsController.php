@@ -9,7 +9,7 @@ use App\Models\Product;
 use App\Models\Customer;
 use Carbon\Carbon;
 use Session;
-
+use PDF;
 class ProductsController extends Controller
 {
     // for create product routing
@@ -39,8 +39,13 @@ class ProductsController extends Controller
     // for all products list table
     public function all_products(Request $request)
     {
-        $products = Product::with('entries')->orderBy('stock')->paginate(6);
-        return view('Stock_Management.all-products-table', ['products' => $products]);
+
+        $products = Product::with('entries')->orderBy('stock')->paginate(5);
+        $entriesin = $products->entries('type', 'In');
+        $entriesout = $products->entries('type', 'Out');
+        $in = $entriesin->sum('quantity');
+        $out = $entriesout->sum('quantity');
+        return view('Stock_Management.all-products-table', ['products' => $products, 'in' => $in, 'out' => $out]);
     }
     // for edit each product ( form page )
     public function edit_product($id)
@@ -82,24 +87,62 @@ class ProductsController extends Controller
         $startDate = $request->input('sdate');
         $endDate = $request->input('edate');
 
+        $pro = Product::all();
         $products = Product::with(
         ['entries' => function ($query) use ($startDate, $endDate)
         {
-            $query->whereBetween('date', [$startDate, $endDate]);
+            $query->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'asc');
         }
         ]
         )->find($id);
 
-        // $products = Product::find($id)->with('entries')->whereBetween('date', $startDate,$endDate)->get
-        $sumIn = Entry::whereBetween('date', [$startDate, $endDate])
-            ->where('type', 'In')
-            ->sum('quantity');
+            // $products = Product::with('entries')->paginate(8);
 
-        $sumOut = Entry::whereBetween('date', [$startDate, $endDate])
-            ->where('type', 'Out')
-            ->sum('quantity');
-            // dd($products);
-        return view('Stock_Management.inout', compact('products', 'sumIn', 'sumOut', 'startDate', 'endDate'));
+            $sumIn = Product::with(['entries' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('date', [$startDate, $endDate])
+                ->where('type', 'In');
+            }])->get();
+
+            $totalQuantityIn = $sumIn->sum('quantity');
+
+            $sumOut = Product::with(['entries' => function ($query) use ($startDate, $endDate) {
+                $query->whereBetween('date', [$startDate, $endDate])
+                ->where('type', 'Out');
+            }])->get();
+
+            $totalQuantityOut = $sumOut->sum('quantity');
+
+        return view('Stock_Management.inout', ['products' => $products, 'startDate' => $startDate, 'endDate' => $endDate,'totalQuantityIn' => $totalQuantityIn, 'totalQuantityOut' => $totalQuantityOut, 'pro' => $pro]);
     }
 
+    public function filter_data(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $query = Product::query();
+
+        if ($searchTerm) {
+            $query->where('name', 'LIKE', "%$searchTerm%")
+                ->orWhere('s_k_u', 'LIKE', "%$searchTerm%");
+        }
+
+        $products = $query->paginate(5);
+
+        $message = $products->isEmpty() ? 'No products found.' : '';
+
+        return view('Stock_Management.all-products-table', compact('products', 'searchTerm', 'message'));
+    }
+
+    public function pdf_products(){
+        $products = Product::all();
+        $options = new Options();
+        $options->set('defualtFont','Arial');
+        $dompdf = new Dompdf($options);
+        $html = view('Stock_Management.all-products-table',compact('products'))->render();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4','potrait');
+        $dompdf->render();
+
+        return $dompdf->stream('Products.pdf');
+
+    }
 }

@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +13,7 @@
 </head>
 <body class="w-full h-full">
     <div style="width: 40%;" class="grid h-screen mx-auto justify-items-center align-middle">
-        <h3 class="text-green-500 font-bold">Products - Graph</h3><br>
+        {{-- <h3 class="text-green-500 font-bold">Products - Graph</h3><br> --}}
         <canvas id="productChart"></canvas>
       </div>
 <div class="w-full h-full ">
@@ -48,3 +50,4 @@
 </div>
 </body>
 </html>
+@endsection

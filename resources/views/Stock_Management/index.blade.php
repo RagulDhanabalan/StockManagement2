@@ -13,13 +13,14 @@
         referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.9.2/tailwind.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
-    <link rel = "icon" href = "https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais" type = "image/x-icon">
+    <link rel="icon"
+        href="https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais"
+        type="image/x-icon">
     {{-- <img src="images/stock1.jpeg" type = "image/x-icon"> --}}
 
 </head>
 
-<body class="bg-gray-100 "
-    style="background-image: url('{{ 'images/stock1.jpeg' }}');repeat:no-repeat;background-size:cover; width: 100%; height: 550px;">
+<body class="bg-gray-100">
     {{-- navbar start --}}
 
     <nav class="bg-white border-gray-200 dark:bg-gray-900">
@@ -76,22 +77,22 @@
                             Dashboard</a>
                     </li>
                     <div class="flex px-2">
-                    <li>
-                        <a href="/login-form"
-                            class="block mr-2 py-2 pl-1 pr-1 text-gray-900 text-green-500 border-green-700 p-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Log In</a>
-                    </li>
-                    <li>
-                        <a href="/register-form"
-                            class="block py-2 pl-1 mr-2 pr-1 text-blue-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            New User</a>
-                    </li>
-                    <li>
-                        <a href="/welcome-customer"
-                            class="block py-2 pl-1 pr-1 text-pink-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                            Customers</a>
-                    </li>
-                </div>
+                        <li>
+                            <a href="/login-form"
+                                class="block mr-2 py-2 pl-1 pr-1 text-gray-900 text-green-500 border-green-700 p-3 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                Log In</a>
+                        </li>
+                        <li>
+                            <a href="/register-form"
+                                class="block py-2 pl-1 mr-2 pr-1 text-blue-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                New User</a>
+                        </li>
+                        <li>
+                            <a href="/welcome-customer"
+                                class="block py-2 pl-1 pr-1 text-pink-500 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                                Customers</a>
+                        </li>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -109,13 +110,15 @@
             </button>
         </div>
     @endif
-    {{-- dashboard start --}}
-    {{-- <div class="h-50">
-        <section class="bg-green-300 w-1/5 h-full text-black">
-            <p>fjfgblfghdflkjh</p>
-
-        </section>
-    </div> --}}
-    {{-- dashboard end --}}
-
+    <div class="content">
+        @yield('content')
+    </div>
+    {{-- <footer class="mt-auto bg-neutral-200 text-center dark:bg-neutral-700 lg:text-left">
+        <div class="p-4 text-center text-neutral-700 dark:text-neutral-200">
+            © 2023 Copyright:
+            <a class="text-neutral-800 dark:text-neutral-400" href="#">e - sandhai.in</a>
+        </div>
+    </footer> --}}
 </body>
+
+</html>

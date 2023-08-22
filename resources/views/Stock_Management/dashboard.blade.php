@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,22 +61,6 @@
             </ul>
         </div>
         <div class="lg:w-10/12 p-2">
-            <div class="nav flex justify-between bg-gray-300 p-2 mb-12 rounded">
-                <h1 class="font-bold text-xl">Stock Management</h1>
-                <ul class="flex px-2">
-                    <li class="mr-2"><a href="#"
-                            class="hover:text-green-600 cursor-pointer text-green-500">Home</a></li>
-                    <li class="mr-2"><a href="#"
-                            class="hover:text-green-600 cursor-pointer text-green-500">Products</a></li>
-                    <li class="mr-2"><a href="#"
-                            class="hover:text-green-600 cursor-pointer text-green-500">Entries</a></li>
-                    <li class=""><a href="#"
-                            class="px-2 py-1 cursor-pointer font-bold rounded">Login</a></li>
-                    <li class="mr-1"><a href="#"
-                            class="px-2 py-1 cursor-pointer font-bold rounded">Register New</a></li>
-                    <li></li>
-                </ul>
-            </div>
                 <p><span class="text-gray-500 mt-12 p-3">/ Dashboard</span></p>
                 <h3 class="p-1 flex justify-between p-3">Welcome, <p class="flex"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -96,5 +82,5 @@
         </div>
     </div>
 </body>
-
+@endsection
 </html>

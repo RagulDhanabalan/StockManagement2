@@ -1,3 +1,5 @@
+@extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -95,5 +97,5 @@
     </div>
 
 </body>
-
+@endsection
 </html>

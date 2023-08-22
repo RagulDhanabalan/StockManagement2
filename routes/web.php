@@ -37,6 +37,8 @@ Route::get('/index', function () {
 
 //route for all-products list table
 Route::get('/products',[ProductsController::class, 'all_products']);
+Route::get('/products',[ProductsController::class, 'filter_data']);
+Route::get('/filter-entries',[EntriesController::class, 'filter_data_entries']);
 Route::post('/products',[ProductsController::class, 'all_products']);
 //route for all-entries list table
 Route::get('/entries',[EntriesController::class, 'all_entries']);
