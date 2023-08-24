@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('description');
             $table->integer('value');
-            $table->date('date')->format(' d F Y ');
+            $table->timestamp('date');
             $table->timestamps();
         });
     }

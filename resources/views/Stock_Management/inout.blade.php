@@ -28,7 +28,7 @@
     <h3 class="text-center text-normal">Showing Results Of : <p class="text-red-600 text-xl">{{ $products->name }}</p></h3>
     <div class="container mx-auto w-full">
 
-        <div class="bg-gray-200 mt-4 mb-3 pb-2 text-center w-1/4 rounded">
+        <div class="bg-red-200 mt-4 mb-3 pb-2 text-center w-1/4 rounded">
             <p class="text-2xl">Inventory</p>
             <span class="text-green-600">Total IN :
                 {{-- <strong>{{ $totalQuantityIn }}</strong></span><br> --}}
@@ -93,9 +93,9 @@
                         <td class="p-2 m-2 border text-center text-sm">{{ $products->s_k_u ?? 'none' }}</td>
                         <td class="p-2 m-2 border text-center text-sm">{{ $entry->type ?? 'none' }}</td>
                         <td class="p-2 m-2 border text-center text-sm">
-                            {{ date('d-m-Y', strtotime($entry->date)) ?? 'none' }}</td>
+                            {{ date('d-M-Y', strtotime($entry->date)) ?? 'none' }}</td>
                     </tr>
-
+                    {{-- $formattedDateTime = $entry->datetime_column->format('Y-m-d H:i:s'); --}}
                     {{-- @endforeach --}}
                 @endforeach
                 @endif

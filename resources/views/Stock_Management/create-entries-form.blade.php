@@ -1,4 +1,5 @@
 @extends('Stock_Management.index')
+@section('content')
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,15 +16,9 @@
     <link rel = "icon" href = "https://img.freepik.com/free-vector/checking-boxes-concept-illustration_114360-2429.jpg?size=626&ext=jpg&ga=GA1.2.597311726.1689829677&semt=ais" type = "image/x-icon">
 </head>
 
-<body class="bg-gray-200 w-full p-3 mx-auto bg-gray-300 my-auto h-full">
-
-
-@section('title', 'Home')
-
-@section('content')
-
+<body class="bg-gray-200 w-full p-3 mx-auto my-auto h-full">
 <!-- Home page content here -->
-<div class="container mx-auto p-2 bg-white h-full w-1/3 mt-5 rounded shadow-lg">
+<div class="container mx-auto p-2 h-full w-1/3 mt-5 rounded shadow-lg">
     <h3 class="text-center text-green-500 font-bold">Create Entries</h3>
     <form action="/insert-entries" method="post" class="max-w-md mx-auto h-full bg-white p-3 rounded">
         @csrf
@@ -76,7 +71,7 @@
     </form>
 </div>
 
-@endsection
-    </body>
 
+    </body>
+    @endsection
 </html>

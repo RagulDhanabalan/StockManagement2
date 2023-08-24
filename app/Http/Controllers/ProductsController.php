@@ -10,6 +10,7 @@ use App\Models\Customer;
 use Carbon\Carbon;
 use Session;
 use PDF;
+
 class ProductsController extends Controller
 {
     // for create product routing
@@ -82,37 +83,42 @@ class ProductsController extends Controller
         return view('Stock_Management.dashboard', ['product' => $product, 'customer' => $customer]);
     }
 
-    public function form(Request $request){
+    public function form(Request $request)
+    {
         $id = $request->input('id');
         $startDate = $request->input('sdate');
         $endDate = $request->input('edate');
 
         $pro = Product::all();
         $products = Product::with(
-        ['entries' => function ($query) use ($startDate, $endDate)
-        {
-            $query->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'asc');
-        }
-        ]
+            [
+                'entries' => function ($query) use ($startDate, $endDate) {
+                    $query->whereBetween('date', [$startDate, $endDate])->orderBy('date', 'asc');
+                }
+            ]
         )->find($id);
 
-            // $products = Product::with('entries')->paginate(8);
+        // $products = Product::with('entries')->paginate(8);
 
-            $sumIn = Product::with(['entries' => function ($query) use ($startDate, $endDate) {
+        $sumIn = Product::with([
+            'entries' => function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('date', [$startDate, $endDate])
-                ->where('type', 'In');
-            }])->get();
+                    ->where('type', 'In');
+            }
+        ])->get();
 
-            $totalQuantityIn = $sumIn->sum('quantity');
+        $totalQuantityIn = $sumIn->sum('quantity');
 
-            $sumOut = Product::with(['entries' => function ($query) use ($startDate, $endDate) {
+        $sumOut = Product::with([
+            'entries' => function ($query) use ($startDate, $endDate) {
                 $query->whereBetween('date', [$startDate, $endDate])
-                ->where('type', 'Out');
-            }])->get();
+                    ->where('type', 'Out');
+            }
+        ])->get();
 
-            $totalQuantityOut = $sumOut->sum('quantity');
+        $totalQuantityOut = $sumOut->sum('quantity');
 
-        return view('Stock_Management.inout', ['products' => $products, 'startDate' => $startDate, 'endDate' => $endDate,'totalQuantityIn' => $totalQuantityIn, 'totalQuantityOut' => $totalQuantityOut, 'pro' => $pro]);
+        return view('Stock_Management.inout', ['products' => $products, 'startDate' => $startDate, 'endDate' => $endDate, 'totalQuantityIn' => $totalQuantityIn, 'totalQuantityOut' => $totalQuantityOut, 'pro' => $pro]);
     }
 
     public function filter_data(Request $request)
@@ -132,17 +138,40 @@ class ProductsController extends Controller
         return view('Stock_Management.all-products-table', compact('products', 'searchTerm', 'message'));
     }
 
-    public function pdf_products(){
+    public function pdf_products()
+    {
         $products = Product::all();
         $options = new Options();
-        $options->set('defualtFont','Arial');
+        $options->set('defualtFont', 'Arial');
         $dompdf = new Dompdf($options);
-        $html = view('Stock_Management.all-products-table',compact('products'))->render();
+        $html = view('Stock_Management.all-products-table', compact('products'))->render();
         $dompdf->loadHtml($html);
-        $dompdf->setPaper('A4','potrait');
+        $dompdf->setPaper('A4', 'potrait');
         $dompdf->render();
 
         return $dompdf->stream('Products.pdf');
 
+    }
+    public function main()
+    {
+        $products = Product::with('entries')->orderBy('stock')->paginate(5);
+        $entries = Entry::with('product')->paginate(5);
+        $pie = Product::all();
+        $piedata = Product::select('name', 'stock')->get();
+        $data = $piedata->toArray();
+        // $products = Product::select('name', 'stock')->get();
+        $bar = $piedata->toArray();
+        $in = 0;
+        $out = 0;
+        $product = Product::all();
+        foreach ($products as $product) {
+            $entriesin = $product->entries()->where('type', 'In')->get();
+            $entriesout = $product->entries()->where('type', 'Out')->get();
+
+            $in += $entriesin->sum('quantity');
+            $out += $entriesout->sum('quantity');
+        }
+
+        return view('Stock_Management.main', ['products' => $products, 'product' => $product, 'data' => $data, 'pie' => $pie, 'piedata' => $piedata, 'bar' => $bar, 'entries' => $entries, 'in' => $in, 'out' => $out]);
     }
 }

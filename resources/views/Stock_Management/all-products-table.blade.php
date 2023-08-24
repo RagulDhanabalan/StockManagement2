@@ -111,10 +111,10 @@
 
         </button>
         {{-- -------------------form --}}
-        <div class="modal bg-gray-300 w-1/3 mt-2 p-1 mx-auto">
+        <div class="grid justify-items-center bg-gray-300 w-1/3 mt-2 p-1 mx-auto">
             <form method="POST" action="/in-out" class="mx-auto">
                 @csrf
-                <select name="id" id="id" class="w-full mx-auto bg-white" required>
+                <select name="id" id="id" class="w-full mx-auto mb-1 bg-white" required>
                     <option class="text-center" selected disabled>Select Product</option>
                     @foreach ($products as $product)
                         <option value="{{ $product->id }}">{{ $product->name }} </option>
@@ -124,7 +124,7 @@
                 <input type="date" name="sdate">
                 <label for="">To</label>
                 <input type="date" name="edate">
-                <button class="bg-black text-white p-1 rounded mt-2 hover:text-gray-400">Submit</button>
+                <button class="bg-black text-white justify-items-center text-center mx-auto p-1 rounded mt-2 hover:text-gray-400">Submit</button>
             </form>
                 {{-- <form action="/products" method="GET" class="w-full flex">
                     @csrf

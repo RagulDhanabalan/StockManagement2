@@ -107,7 +107,7 @@
                             <td class="p-2 m-2 border text-center text-sm">
                                 {{ $entry->description ?? 'None' }}</td>
                             <td class="p-2 m-2 border text-center text-sm">
-                                {{ date('d-m-Y', strtotime($entry->date)) ?? 'None' }}</td>
+                                {{ date('d-M-Y ', strtotime($entry->date)) ?? 'None' }}</td>
                     </tr>
                     @endforeach
                 </tbody>

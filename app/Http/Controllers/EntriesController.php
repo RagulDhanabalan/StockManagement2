@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Entry;
+use Carbon\Carbon;
 
 class EntriesController extends Controller
 {
@@ -39,7 +40,8 @@ class EntriesController extends Controller
             $product->save();
         }
         $value = $product->price * $request->quantity;
-        Entry::create([
+
+        $entry = Entry::create([
             'product_id' => $request->product_id,
             'type' => $request->type,
             'quantity' => $request->quantity,
@@ -47,6 +49,7 @@ class EntriesController extends Controller
             'date' => $request->date,
             'value' => $value,
         ]);
+
         return redirect('/entries')->with('message', 'New Entry created Successfully !');
     }
 
